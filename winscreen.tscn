@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://qknfvkvbbyu5"]
+
+[ext_resource type="PackedScene" uid="uid://c26nvjcge1fs3" path="res://mainmenu.tscn" id="1_ypu3e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_16i73"]
+line_spacing = 12.0
+font_size = 99
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Node2D" instance=ExtResource("1_ypu3e")]
+
+[node name="Label3" parent="." index="6"]
+offset_left = 309.0
+offset_top = 201.0
+offset_right = 1540.0
+offset_bottom = 912.0
+text = "YOU WON!!!!
+IM TOO LAZY 
+TO FINISH, YOU 
+CAN KEEP PLAYING
+ IF YOU WANT"
+label_settings = SubResource("LabelSettings_16i73")
+horizontal_alignment = 1
+
+[node name="Label4" parent="." index="7"]
+offset_left = 738.0
+offset_top = 261.0
+offset_right = 1549.0
+offset_bottom = 1045.0
+text = ""

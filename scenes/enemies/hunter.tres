@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bnjrjgalwb4rs"]
+
+[ext_resource type="Shader" path="res://scenes/enemies/hunter2.gdshader" id="1_xo5ln"]
+
+[resource]
+shader = ExtResource("1_xo5ln")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/progress = 0.0

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://butyfxm84viyu"]
+
+[ext_resource type="AudioStream" uid="uid://cduopude4nqm0" path="res://audio/Isaac Dark Title mp3.mp3" id="1_f0qus"]
+
+[node name="Music" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_f0qus")
+volume_db = 3.233
+autoplay = true

@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=3 uid="uid://c26nvjcge1fs3"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_457x0"]
+[ext_resource type="PackedScene" uid="uid://i6eggl1rln6k" path="res://scenes/player/player.tscn" id="2_8iqpd"]
+[ext_resource type="TileSet" uid="uid://11m2jmqnmts6" path="res://scenes/levels/house.tres" id="2_anly7"]
+[ext_resource type="LabelSettings" uid="uid://bx707y2rshdja" path="res://mainmenu.tres" id="4_1edtw"]
+[ext_resource type="FontFile" uid="uid://ci0b8mroag7ml" path="res://graphics/tilesets/diager-font/ledlight-font/Ledlight-qXZx.otf" id="4_5k81w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y42xu"]
+size = Vector2(674, 222)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ojwr"]
+size = Vector2(1376, 252)
+
+[sub_resource type="Theme" id="Theme_4ttad"]
+default_font = ExtResource("4_5k81w")
+
+[sub_resource type="Theme" id="Theme_4ayxc"]
+default_font = ExtResource("4_5k81w")
+
+[sub_resource type="LabelSettings" id="LabelSettings_eu3mv"]
+font_size = 96
+outline_size = 20
+outline_color = Color(0.317647, 0.478431, 0.54902, 1)
+shadow_size = 45
+shadow_color = Color(0, 0, 0, 0.337255)
+shadow_offset = Vector2(9.09, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q46ps"]
+line_spacing = 12.0
+font_size = 19
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q760q"]
+line_spacing = 12.0
+font_size = 30
+font_color = Color(0.964706, 0.211765, 0.443137, 1)
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_457x0")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_anly7")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 1, 65536, 1, 2, 65536, 1, 3, 65536, 1, 4, 65536, 1, 65540, 65536, 1, 131076, 65536, 1, 131075, 65536, 1, 131074, 65536, 1, 131073, 65536, 1, 131072, 65536, 1, 65536, 65536, 1, 65537, 65536, 1, 65538, 65536, 1, 65539, 65536, 1)
+layer_1/name = ""
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(131072, 2, 3, 65536, 2, 2, 0, 2, 2, 65540, 2, 2, 4, 2, 2, 131076, 2, 3, 3, 2, 3, 1, 2, 3)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 13
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(527, 1, 525, 237, 535, 239, 646, 237, 647, 232, 646, 116, 645, 1)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(137, 1, 137, 1021, 256, 1019, 258, 896, 253, 318, 254, -4)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1307, 0, 1306, 240, 1428, 239, 1428, 113, 1424, 1)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1696, 2, 1696, 1021, 1816, 1020, 1817, 892, 1814, 115, 1813, 1)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(4, 1082, 1919, 1083, 1913, 1334, 58, 1261)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(971, 65)
+shape = SubResource("RectangleShape2D_y42xu")
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(2, -60)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(983, 1126)
+shape = SubResource("RectangleShape2D_5ojwr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 482.0
+offset_top = 929.0
+offset_right = 1497.0
+offset_bottom = 1098.0
+theme = SubResource("Theme_4ttad")
+text = "Leave Game"
+label_settings = ExtResource("4_1edtw")
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.145098, 0.670588, 0.317647, 1)
+offset_left = 693.0
+offset_top = 76.0
+offset_right = 1621.0
+offset_bottom = 294.0
+theme = SubResource("Theme_4ayxc")
+text = "Play Game"
+label_settings = SubResource("LabelSettings_eu3mv")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 290.0
+offset_top = 175.0
+offset_right = 1101.0
+offset_bottom = 959.0
+text = "Tips:
+
+You can kill the car
+
+You can shoot toilets and crates for more materials and health
+
+Left click = shoot | Right Click = grenade | Space = quick dodge
+
+Grenades and drones can also open crates
+
+You can go inside the building at the top, but you need to kill 
+every enemy outside = 1140pts
+
+Killing the hunter grants lifesteal on kill , but he is very
+hard to kill
+
+Bugs can give you laser ammo
+
+Reach X points to win!"
+label_settings = SubResource("LabelSettings_q46ps")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 1006.0
+offset_top = 298.0
+offset_right = 1817.0
+offset_bottom = 1082.0
+text = "Returning outside after going inside 
+will reset you from
+the beginning. I can't figure out how
+to reset ammo and points
+yet so please don't go back
+outside. Kill every enemy 
+inside and outside to win 
+and unlock the infinite mode!"
+label_settings = SubResource("LabelSettings_q760q")
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("2_8iqpd")]
+position = Vector2(982, 577)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(80, 31)
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

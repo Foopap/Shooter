@@ -1,0 +1,194 @@
+[gd_scene load_steps=14 format=3 uid="uid://dfoi333lx8tfe"]
+
+[ext_resource type="Texture2D" uid="uid://chwbnhyanliop" path="res://graphics/car/main.png" id="1_ab46o"]
+[ext_resource type="Script" path="res://scenes/enemies/car.gd" id="1_gcxti"]
+[ext_resource type="Shader" path="res://scenes/enemies/car2.gdshader" id="1_nw61e"]
+[ext_resource type="Shader" path="res://scenes/enemies/car.gdshader" id="3_an0tv"]
+[ext_resource type="Texture2D" uid="uid://c7nua6emgswgn" path="res://graphics/car/turret.png" id="3_oej2o"]
+[ext_resource type="Material" uid="uid://duff8fvpxbbki" path="res://scenes/enemies/car2.tres" id="4_0ifjk"]
+[ext_resource type="Texture2D" uid="uid://dij76ye5b2yla" path="res://graphics/explosions/gun.png" id="4_60hg6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwbrd"]
+shader = ExtResource("1_nw61e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tugfo"]
+shader = ExtResource("3_an0tv")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="GDScript" id="GDScript_1trnj"]
+script/source = "extends CharacterBody2D
+
+var vulnerable: bool = true
+
+signal cardeath
+
+func hit():
+	if vulnerable:
+		Globals.car_health -= 10
+		vulnerable = false
+		$\"../HitTimer\".start()
+		$\"../Sprite2D\".material.set_shader_parameter(\"progress\",0.7)
+	if Globals.car_health <= 0:
+		cardeath.emit()
+		
+func _on_hit_timer_timeout():
+	vulnerable = true
+	$\"../Sprite2D\".material.set_shader_parameter(\"progress\",0.0)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tur2"]
+radius = 1363.0
+
+[sub_resource type="Animation" id="Animation_v4fmg"]
+resource_name = "laser_load"
+length = 1.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/RayCast2D2/Line2D:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 10.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Turret/RayCast2D/Line2D:width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 10.0, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Turret/RayCast2D2/GunFire:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.25, 1.3, 1.35, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Turret/RayCast2D2/GunFire2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.25, 1.3, 1.35, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ejti5"]
+_data = {
+"laser_load": SubResource("Animation_v4fmg")
+}
+
+[node name="Car" type="PathFollow2D"]
+material = SubResource("ShaderMaterial_wwbrd")
+script = ExtResource("1_gcxti")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+material = SubResource("ShaderMaterial_tugfo")
+collision_layer = 2
+collision_mask = 11
+script = SubResource("GDScript_1trnj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D"]
+polygon = PackedVector2Array(2, -129, 64, -169, 175, -169, 210, -160, 238, -103, 249, -79, 250, -18, 247, 90, 210, 158, 144, 173, 72, 169, 4, 131, -41, 178, -102, 182, -159, 177, -174, 166, -175, 111, -175, 54, -229, 42, -238, 33, -237, -36, -232, -41, -211, -54, -183, -51, -171, -78, -171, -139, -174, -171, -136, -187, -68, -184, -38, -173)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("4_0ifjk")
+position = Vector2(59, 0)
+rotation = 1.5708
+texture = ExtResource("1_ab46o")
+
+[node name="NoticeArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea"]
+shape = SubResource("CircleShape2D_8tur2")
+
+[node name="Turret" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Turret"]
+material = ExtResource("4_0ifjk")
+rotation = 1.5708
+texture = ExtResource("3_oej2o")
+
+[node name="RayCast2D" type="RayCast2D" parent="Turret"]
+position = Vector2(113, -28)
+target_position = Vector2(1232, 0)
+
+[node name="Line2D" type="Line2D" parent="Turret/RayCast2D"]
+scale = Vector2(1.89692, 1)
+points = PackedVector2Array(0, 0, 646.837, 0)
+width = 0.0
+default_color = Color(0.752941, 0.133333, 0.188235, 0.737255)
+
+[node name="RayCast2D2" type="RayCast2D" parent="Turret"]
+position = Vector2(113, 29)
+target_position = Vector2(1232, 0)
+
+[node name="Line2D" type="Line2D" parent="Turret/RayCast2D2"]
+position = Vector2(-114, 88)
+points = PackedVector2Array(114, -88, 1341, -88)
+width = 0.0
+default_color = Color(0.752941, 0.133333, 0.188235, 0.737255)
+
+[node name="GunFire" type="Sprite2D" parent="Turret/RayCast2D2"]
+visible = false
+position = Vector2(103, -6)
+rotation = 1.5708
+texture = ExtResource("4_60hg6")
+
+[node name="GunFire2" type="Sprite2D" parent="Turret/RayCast2D2"]
+visible = false
+position = Vector2(104, -65)
+rotation = 1.5708
+texture = ExtResource("4_60hg6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ejti5")
+}
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[connection signal="cardeath" from="CharacterBody2D" to="." method="_on_character_body_2d_cardeath"]
+[connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
+[connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]
+[connection signal="timeout" from="HitTimer" to="CharacterBody2D" method="_on_hit_timer_timeout"]

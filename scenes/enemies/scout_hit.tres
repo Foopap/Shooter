@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://v7iehgx572wh"]
+
+[ext_resource type="Shader" path="res://scenes/enemies/scout.gdshader" id="1_14gjp"]
+
+[resource]
+shader = ExtResource("1_14gjp")
+shader_parameter/color = Color(1, 0.0980392, 0.0666667, 1)
+shader_parameter/progress = 0.0

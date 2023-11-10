@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cduopude4nqm0"
+path="res://.godot/imported/Isaac Dark Title mp3.mp3-2c3f013a84f513c870e6005f8e26e0b1.mp3str"
+
+[deps]
+
+source_file="res://audio/Isaac Dark Title mp3.mp3"
+dest_files=["res://.godot/imported/Isaac Dark Title mp3.mp3-2c3f013a84f513c870e6005f8e26e0b1.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

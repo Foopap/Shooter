@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwbgpnjmaojuv"]
+
+[ext_resource type="Script" path="res://scenes/projectiles/laser.gd" id="1_a1r2d"]
+[ext_resource type="Texture2D" uid="uid://dluklv40h1mkh" path="res://graphics/projectiles/blue.png" id="1_r4w1b"]
+[ext_resource type="AudioStream" uid="uid://ghuf2x3j4ciw" path="res://audio/laser.wav" id="3_fi303"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ybbt3"]
+radius = 7.0
+height = 70.0
+
+[node name="Laser" type="Area2D"]
+collision_layer = 8
+collision_mask = 39
+script = ExtResource("1_a1r2d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 47)
+texture = ExtResource("1_r4w1b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ybbt3")
+
+[node name="LaserBeGone" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fi303")
+max_polyphony = 36
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="LaserBeGone" to="." method="_on_laser_be_gone_timeout"]
